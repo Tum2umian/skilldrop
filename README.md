@@ -17,10 +17,10 @@ SkillDrop is a web-based platform that connects service seekers with skilled pro
 - Admin Controls: Manage users and listings. 
 
 ## Technology Stack Used  
-- **Frontend:** HTML, CSS, JavaScript (React/Vue/Angular)  
-- **Backend:** Node.js, Express, Django, Flask  
-- **Database:** MySQL, PostgreSQL, MongoDB  
-- **Other:** Docker, Firebase, GCP, AWS
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** PHP
+- **Database:** MySQL 
+- **Other:** Docker, GCP
 
 ## Installation Guide
 
@@ -39,7 +39,7 @@ Import the database:
 
 3. Configure Environment
 
-Rename .env.example to .env and update database settings:
+4. Rename .env.example to .env and update database settings:
 
  DB_CONNECTION=mysql
  DB_HOST=127.0.0.1
@@ -48,11 +48,11 @@ Rename .env.example to .env and update database settings:
  DB_USERNAME=root
  DB_PASSWORD=yourpassword
 
-Run migrations (if needed):
+5. Run migrations (if needed):
 
  php artisan migrate
 
-4. Run the Application
+6. Run the Application
 
  php artisan serve
 
@@ -82,49 +82,49 @@ Edit Apache Virtual Host and restart Apache:
 
 ## Usage
 
-Visit http://localhost:8000 for local setup.
+1. Visit http://localhost:8000 for local setup.
 
-Register an account as a Professional or Service Seeker.
+2. Register an account as a Professional or Service Seeker.
 
-Search for professionals based on skill and location.
+3. Search for professionals based on skill and location.
 
-Leave reviews after service completion.
+4. Leave reviews after service completion.
 
-Security Best Practices
+## Security Best Practices
 
-Data Encryption: SSL/TLS enabled.
+- Data Encryption: SSL/TLS enabled.
 
-Authentication: Secure login with hashed passwords.
+- Authentication: Secure login with hashed passwords.
 
-SQL Injection Protection: Input validation and prepared statements.
+- SQL Injection Protection: Input validation and prepared statements.
 
 ## Software Metrics Tracking
 
-Weekly Commits: Updates tracked in metrics.md.
+- Weekly Commits: Updates tracked in metrics.md.
 
-Code Quality: PHPMD (PHP Mess Detector) reports.
+- Code Quality: PHPMD (PHP Mess Detector) reports.
 
-Performance Monitoring: Query execution time tracking.
+- Performance Monitoring: Query execution time tracking.
 
-Test Coverage: PHPUnit for backend tests.
+- Test Coverage: PHPUnit for backend tests.
 
 ## Contributing
 
-Fork the repository.
+1. Fork the repository.
 
-Create a feature branch (git checkout -b feature-name).
+2. Create a feature branch (git checkout -b feature-name).
 
-Commit changes (git commit -m 'Add feature').
+3. Commit changes (git commit -m 'Add feature').
 
-Push to the branch (git push origin feature-name).
+4. Push to the branch (git push origin feature-name).
 
-Open a Pull Request.
+5. Open a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License.
+This in open-source project.
 
 ## Contact Us
 
-For any inquiries or issues, contact us at support@skilldrop.com.
+For any inquiries or issues, contact us through the group admin. 
 
