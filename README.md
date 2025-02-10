@@ -42,11 +42,16 @@ Import the database:
 4. Rename .env.example to .env and update database settings:
 
  DB_CONNECTION=mysql
+ 
  DB_HOST=127.0.0.1
+ 
  DB_PORT=3306
+ 
  DB_DATABASE=skilldrop
+ 
  DB_USERNAME=root
- DB_PASSWORD=yourpassword
+ 
+ DB_PASSWORD=""
 
 5. Run migrations (if needed):
 
