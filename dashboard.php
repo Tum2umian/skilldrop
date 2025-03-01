@@ -443,4 +443,3 @@ function submitImageForm() {
 </body>
 </html>
 
-
