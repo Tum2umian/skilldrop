@@ -4,17 +4,23 @@
 SkillDrop is a web-based platform that connects service seekers with skilled professionals in their local areas. The system allows users to register, search for professionals, rate services, and communicate securely. Built using PHP (Laravel) and MySQL, SkillDrop ensures efficiency, scalability, and security for seamless user experiences.
 
 ## Available Features 
-- User Authentication: Registration, Login, and Role-Based Access Control (Admin, Professional, Seeker).
+- User Authentication: Registration, Login, and Role-Based Access Control (Admin, Workers, Employers).
 
-- Profile Management: Professionals can list their skills, availability, and location.
+- Profile Management: Users can list their skills, availability, and location.
+  
+- The admin manages all accounts in the system and is resposible for approving, suspending and deletein accounts if necessary.
+  
+- Workers are able to list all the skills they have acquired and edit to make changes any time
+  
+- The system logs all changes made and the admin is notified
+  
+- Different users have independent dashboards depending on their roles in the system
 
 - Search & Match: Geolocation-based search for professionals.
 
 - Ratings & Reviews: Users can rate and review professionals.
 
-- Messaging System: Secure in-app messaging.
-
-- Admin Controls: Manage users and listings. 
+- Messaging System: Secure in-app messaging. 
 
 ## Technology Stack Used  
 - **Frontend:** HTML, CSS, JavaScript  
