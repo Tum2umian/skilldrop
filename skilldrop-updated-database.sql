@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2025 at 08:45 AM
+-- Generation Time: Mar 08, 2025 at 09:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,96 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `applications`
+--
+
+CREATE TABLE `applications` (
+  `id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` enum('pending','approved','rejected','hired') NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employer_reviews`
+--
+
+CREATE TABLE `employer_reviews` (
+  `id` int(11) NOT NULL,
+  `employer_id` int(11) NOT NULL,
+  `worker_id` int(11) NOT NULL,
+  `rating` int(11) NOT NULL CHECK (`rating` between 1 and 5),
+  `review_text` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employer_settings`
+--
+
+CREATE TABLE `employer_settings` (
+  `id` int(11) NOT NULL,
+  `employer_id` int(11) NOT NULL,
+  `email_notifications` tinyint(1) NOT NULL DEFAULT 1,
+  `sms_notifications` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invitations`
+--
+
+CREATE TABLE `invitations` (
+  `id` int(11) NOT NULL,
+  `employer_id` int(11) NOT NULL,
+  `worker_id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `message` text DEFAULT NULL,
+  `status` enum('pending','accepted','declined') DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `invitations`
+--
+
+INSERT INTO `invitations` (`id`, `employer_id`, `worker_id`, `job_id`, `message`, `status`, `created_at`) VALUES
+(1, 15, 12, 1, 'Hello please come and work', 'accepted', '2025-03-08 20:07:53'),
+(2, 15, 12, 1, 'PLEASE', 'declined', '2025-03-08 20:30:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_posts`
+--
+
+CREATE TABLE `job_posts` (
+  `id` int(11) NOT NULL,
+  `employer_id` int(11) NOT NULL,
+  `job_title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `status` enum('open','closed') NOT NULL DEFAULT 'open',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `job_posts`
+--
+
+INSERT INTO `job_posts` (`id`, `employer_id`, `job_title`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(1, 15, 'Chef', 'You must know how to cook', 'open', '2025-03-08 19:34:52', '2025-03-08 19:34:52');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `logs`
 --
 
@@ -32,7 +122,7 @@ CREATE TABLE `logs` (
   `user_id` int(11) DEFAULT NULL,
   `action` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
-  `ip_address` varchar(45) NOT NULL,
+  `ip_address` varchar(45) DEFAULT '127.0.0.1',
   `user_agent` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -83,7 +173,14 @@ INSERT INTO `logs` (`id`, `user_id`, `action`, `description`, `ip_address`, `use
 (39, 13, 'approve_user', 'Approved user with ID 2', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0', '2025-02-26 17:25:59'),
 (40, 13, 'suspend_user', 'Suspended user with ID 12', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0', '2025-02-26 17:29:09'),
 (41, 13, 'suspend_user', 'Suspended user with ID 9', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0', '2025-02-27 08:26:53'),
-(42, 12, 'profile_update', 'Location changed from \'Jinja\' to \'Gulu\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0', '2025-02-27 08:47:40');
+(42, 12, 'profile_update', 'Location changed from \'Jinja\' to \'Gulu\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0', '2025-02-27 08:47:40'),
+(43, 13, 'approve_user', 'Approved user with ID 15', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', '2025-03-08 11:07:43'),
+(44, 13, 'change_role', 'Changed role of user ID 15 to employer', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', '2025-03-08 11:24:12'),
+(45, 13, 'change_role', 'Changed role of user ID 15 to worker', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', '2025-03-08 16:08:00'),
+(46, 13, 'change_role', 'Changed role of user ID 15 to ', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', '2025-03-08 16:08:08'),
+(47, 13, 'change_role', 'Changed role of user ID 15 to employer', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', '2025-03-08 16:09:11'),
+(48, 13, 'change_role', 'Changed role of user ID 15 to worker', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0', '2025-03-08 20:15:26'),
+(49, 13, 'change_role', 'Changed role of user ID 15 to employer', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0', '2025-03-08 20:29:33');
 
 -- --------------------------------------------------------
 
@@ -217,7 +314,8 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `user_id`, `service_name`, `description`, `created_at`, `updated_at`) VALUES
-(5, 12, 'IT Admin', 'I manage servers at enterprise level :)', '2025-02-26 15:03:48', '2025-02-27 08:47:17');
+(5, 12, 'IT Admin', 'I manage servers at enterprise level :)', '2025-02-26 15:03:48', '2025-02-27 08:47:17'),
+(8, 15, 'Hacker', 'I hack', '2025-03-08 20:17:46', '2025-03-08 20:17:46');
 
 -- --------------------------------------------------------
 
@@ -336,12 +434,52 @@ INSERT INTO `users` (`id`, `full_name`, `role`, `status`, `email`, `phone`, `pas
 (8, 'Jordan Arinda', '', 'active', 'jordan@gmail.com', '0123456789', '$2y$10$q21xDbh7Lxi2Jx4vBcr7geFwrTlMeRNUMyqjrs1lFIWVYHJttXzKy', 'Mbarara', NULL, '2024-11-10 13:16:18'),
 (9, 'Sheeba Rain', '', 'suspended', 'sheeba@gmail.com', '0788790734', '$2y$10$SldYONYktE2hEHjNntrvUOwLXOdBslVrjeDSJm0B1cxjE62CQQL0q', 'Mbarara', NULL, '2024-11-25 10:44:24'),
 (11, 'Muhairwe Enock', '', 'active', 'menock@gmail.com', '0782123456', '$2y$10$ICibeiVFAwwGjM6VNteDSebBp9Ls/gvuCh/zcy6UHZxg93ds/lDlO', 'Mbarara', NULL, '2024-12-05 11:46:31'),
-(12, 'Tuwangye Brave Pro', 'worker', 'suspended', 'tbrave@gmail.com', '0782123456', '$2y$10$wjzVM8QqyMzD21jYCmusO.0bkSpAdrsSLy4IMpj0FcFFFPcFyItQ2', 'Gulu', 'uploads/profile_images/12_9795860448618232371.png', '2024-12-05 11:47:57'),
-(13, 'Ainamaani Allan Mwesigye', 'admin', '', '2023bse151@std.must.ac.ug', '0700868939', '$2y$10$b7dIFwbrgspoies3qxklJ.cMDTiV/qvGtxUwg7LYfLIuEKx79cese', 'Lugazi', 'uploads/profile_images/13_alma.jpg', '2025-02-10 09:42:16');
+(12, 'Tuwangye Brave Pro', 'worker', 'suspended', 'tbrave@gmail.com', '0782123456', '$2y$10$wjzVM8QqyMzD21jYCmusO.0bkSpAdrsSLy4IMpj0FcFFFPcFyItQ2', 'Gulu', '../uploads/profile_images/1741465309_musk.jpg', '2024-12-05 11:47:57'),
+(13, 'Ainamaani Allan Mwesigye', 'admin', '', '2023bse151@std.must.ac.ug', '0700868939', '$2y$10$b7dIFwbrgspoies3qxklJ.cMDTiV/qvGtxUwg7LYfLIuEKx79cese', 'Lugazi', 'uploads/profile_images/ainamaani_allan_mwesigye_1741461128.jpg', '2025-02-10 09:42:16'),
+(15, 'Kyalimanya Job', 'employer', 'active', 'kjob@gmail.com', '0772930293', '$2y$10$2KbxLXUED8OWJ0NUyDW7WO03Gg.p0yFPbywrr2O7W3L.8hO.Cs3vO', 'Katete', '../uploads/profile_images/kyalimanya_job.jpg', '2025-03-07 16:42:20');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `applications`
+--
+ALTER TABLE `applications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `job_id` (`job_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `employer_reviews`
+--
+ALTER TABLE `employer_reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `employer_id` (`employer_id`),
+  ADD KEY `worker_id` (`worker_id`);
+
+--
+-- Indexes for table `employer_settings`
+--
+ALTER TABLE `employer_settings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `employer_id` (`employer_id`);
+
+--
+-- Indexes for table `invitations`
+--
+ALTER TABLE `invitations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `employer_id` (`employer_id`),
+  ADD KEY `worker_id` (`worker_id`),
+  ADD KEY `job_id` (`job_id`);
+
+--
+-- Indexes for table `job_posts`
+--
+ALTER TABLE `job_posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `employer_id` (`employer_id`);
 
 --
 -- Indexes for table `logs`
@@ -410,10 +548,40 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `applications`
+--
+ALTER TABLE `applications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `employer_reviews`
+--
+ALTER TABLE `employer_reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `employer_settings`
+--
+ALTER TABLE `employer_settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `invitations`
+--
+ALTER TABLE `invitations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `job_posts`
+--
+ALTER TABLE `job_posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -431,7 +599,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `service_requests`
@@ -455,11 +623,45 @@ ALTER TABLE `skills`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `applications`
+--
+ALTER TABLE `applications`
+  ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `job_posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `employer_reviews`
+--
+ALTER TABLE `employer_reviews`
+  ADD CONSTRAINT `employer_reviews_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `employer_reviews_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `employer_settings`
+--
+ALTER TABLE `employer_settings`
+  ADD CONSTRAINT `employer_settings_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `invitations`
+--
+ALTER TABLE `invitations`
+  ADD CONSTRAINT `invitations_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `invitations_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `invitations_ibfk_3` FOREIGN KEY (`job_id`) REFERENCES `job_posts` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `job_posts`
+--
+ALTER TABLE `job_posts`
+  ADD CONSTRAINT `job_posts_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `logs`
