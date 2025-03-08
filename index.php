@@ -4,6 +4,9 @@
 include 'includes/header.php'; 
 ?>
 <link rel="stylesheet" href="assets/css/main.css">
+<?php if (isset($_GET['logout']) && $_GET['logout'] == "success"): ?>
+    <div class="alertsuccess">You have logged out successfully!</div>
+<?php endif; ?>
 
 <main class="main container">
     <!-- Hero Section -->

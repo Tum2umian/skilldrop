@@ -2,7 +2,7 @@
 include '../includes/header.php';
 include '../includes/db.php';
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'employer') {
     header("Location: ../auth/login.php");
     exit;
 }
@@ -118,6 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <main class="main container">
+    
     <h2>Edit Profile</h2>
     
     <?php if (!empty($message)): ?>

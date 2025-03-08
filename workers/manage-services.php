@@ -17,7 +17,7 @@ $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-$profile_image = !empty($user['profile_image']) ? "../" . $user['profile_image'] : '../uploads/profile_images/default.svg';
+$profile_image = !empty($user['profile_image']) ? "" . $user['profile_image'] : '../uploads/profile_images/default.svg';
 ?>
 
 <main class="main">

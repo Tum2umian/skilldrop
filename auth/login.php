@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header("Location: ../workers/dashboard.php");
                 break;
             default:
-                header("Location: ../dashboard.php"); // Default dashboard if role is undefined
+                header("Location: ../pending-confirmation.php"); // Default dashboard if role is undefined
         }
         exit;
     } else {

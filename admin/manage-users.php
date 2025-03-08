@@ -2,6 +2,8 @@
 include '../includes/header.php';
 include '../includes/db.php';
 
+
+// Ensure only admins can access
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
     header("Location: ../login.php");
     exit;
@@ -9,7 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
 
 $logged_in_admin_id = $_SESSION['user_id']; // Prevent self-deletion
 
-// Handle User Actions (Approve, Suspend, Unsuspend, Delete)
+// Handle User Actions (Approve, Suspend, Unsuspend, Delete, Change Role)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['user_id'])) {
     $action = $_POST['action'];
     $target_user_id = (int) $_POST['user_id'];
@@ -24,30 +26,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['use
         exit;
     }
 
-    if ($action === 'approve') {
-        $stmt = $conn->prepare("UPDATE users SET status = 'active' WHERE id = ?");
-        $stmt->bind_param("i", $target_user_id);
+    if ($action === 'approve' && isset($_POST['role'])) {
+        $new_role = $_POST['role'];
+        $stmt = $conn->prepare("UPDATE users SET status = 'active', role = ? WHERE id = ?");
+        $stmt->bind_param("si", $new_role, $target_user_id);
         $stmt->execute();
         $log_action = "approve_user";
-        $log_description = "Approved user with ID $target_user_id";
+        $log_description = "Approved user ID $target_user_id as $new_role";
     } elseif ($action === 'suspend') {
         $stmt = $conn->prepare("UPDATE users SET status = 'suspended' WHERE id = ?");
         $stmt->bind_param("i", $target_user_id);
         $stmt->execute();
         $log_action = "suspend_user";
-        $log_description = "Suspended user with ID $target_user_id";
+        $log_description = "Suspended user ID $target_user_id";
     } elseif ($action === 'unsuspend') {
         $stmt = $conn->prepare("UPDATE users SET status = 'active' WHERE id = ?");
         $stmt->bind_param("i", $target_user_id);
         $stmt->execute();
         $log_action = "unsuspend_user";
-        $log_description = "Unsuspended user with ID $target_user_id";
+        $log_description = "Unsuspended user ID $target_user_id";
     } elseif ($action === 'delete') {
         $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
         $stmt->bind_param("i", $target_user_id);
         $stmt->execute();
         $log_action = "delete_user";
-        $log_description = "Deleted user with ID $target_user_id";
+        $log_description = "Deleted user ID $target_user_id";
+    } elseif ($action === 'change_role' && isset($_POST['new_role'])) {
+        $new_role = $_POST['new_role'];
+
+        // Prevent self role change to avoid locking admin out
+        if ($target_user_id === $logged_in_admin_id) {
+            header("Location: manage-users.php?error=self-role-change");
+            exit;
+        }
+
+        $stmt = $conn->prepare("UPDATE users SET role = ? WHERE id = ?");
+        $stmt->bind_param("si", $new_role, $target_user_id);
+        $stmt->execute();
+        $log_action = "change_role";
+        $log_description = "Changed role of user ID $target_user_id to $new_role";
     }
 
     // Log the action
@@ -64,25 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['use
 
 // Fetch Users
 $users_query = $conn->query("SELECT id, full_name, email, role, status FROM users ORDER BY created_at DESC");
-$total_users = $conn->query("SELECT COUNT(*) as total FROM users")->fetch_assoc()['total'];
-$active_users = $conn->query("SELECT COUNT(*) as total FROM users WHERE status = 'active'")->fetch_assoc()['total'];
-$suspended_users = $conn->query("SELECT COUNT(*) as total FROM users WHERE status = 'suspended'")->fetch_assoc()['total'];
-$pending_users = $conn->query("SELECT COUNT(*) as total FROM users WHERE status = 'pending'")->fetch_assoc()['total'];
 ?>
 
 <main class="main">
     <h2>Manage Users</h2>
-
-    <?php if (isset($_GET['error']) && $_GET['error'] == 'self-delete'): ?>
-        <p class="error-message">You cannot delete your own admin account.</p>
-    <?php endif; ?>
-
-    <div class="dashboard-grid">
-        <div class="dashboard-card"><h3>Total Users</h3><p><?php echo $total_users; ?></p></div>
-        <div class="dashboard-card"><h3>Active Users</h3><p><?php echo $active_users; ?></p></div>
-        <div class="dashboard-card"><h3>Suspended Users</h3><p><?php echo $suspended_users; ?></p></div>
-        <div class="dashboard-card"><h3>Pending Approvals</h3><p><?php echo $pending_users; ?></p></div>
-    </div>
 
     <section class="user-management">
         <h3>User List</h3>
@@ -108,7 +110,14 @@ $pending_users = $conn->query("SELECT COUNT(*) as total FROM users WHERE status 
                     <td>
                         <form method="POST" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+
                             <?php if ($user['status'] === 'pending'): ?>
+                                <select name="role" required>
+                                    <option value="">Select Role</option>
+                                    <option value="worker">Worker</option>
+                                    <option value="employer">Employer</option>
+                                    <option value="admin">Admin</option>
+                                </select>
                                 <button type="submit" name="action" value="approve" class="button primary">Approve</button>
                             <?php elseif ($user['status'] === 'active'): ?>
                                 <button type="submit" name="action" value="suspend" class="button secondary">Suspend</button>
@@ -116,7 +125,9 @@ $pending_users = $conn->query("SELECT COUNT(*) as total FROM users WHERE status 
                                 <button type="submit" name="action" value="unsuspend" class="button secondary">Unsuspend</button>
                             <?php endif; ?>
 
-                            <?php if ($user['id'] !== $logged_in_admin_id): ?> <!-- Prevent Self-Deletion -->
+                            <button type="button" class="role-change-btn button" data-user-id="<?php echo $user['id']; ?>" data-current-role="<?php echo $user['role']; ?>">Change Role</button>
+
+                            <?php if ($user['id'] !== $logged_in_admin_id): ?>
                                 <button type="submit" name="action" value="delete" class="button danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
                             <?php endif; ?>
                         </form>
@@ -127,5 +138,27 @@ $pending_users = $conn->query("SELECT COUNT(*) as total FROM users WHERE status 
         </table>
     </section>
 </main>
+
+<!-- Role Change Modal -->
+<div id="roleModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3>Change User Role</h3>
+        <form id="roleChangeForm" method="POST">
+            <input type="hidden" name="user_id" id="modalUserId">
+            <label for="newRole">Select New Role:</label>
+            <select name="new_role" id="newRole">
+                <option value="worker">Worker</option>
+                <option value="employer">Employer</option>
+                <option value="admin">Admin</option>
+                <option value="">Pending (No Role)</option>
+            </select>
+            <button type="submit" name="action" value="change_role" class="button primary">Update Role</button>
+        </form>
+    </div>
+</div>
+
+<script src="../assets/js/change-role.js"></script>
+
 
 <?php include '../includes/footer.php'; ?>
