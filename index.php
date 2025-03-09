@@ -14,10 +14,10 @@ include 'includes/header.php';
         <h2>Find Skilled Professionals Nearby</h2>
         <p>Connect with trusted experts for any task, from repairs to lessons.</p>
         <div class="hero-buttons">
-            <a href="dashboard.php">
+            <a href="employers/dashboard.php">
                 <button class="hero-button hero-button-primary">Find a Professional</button>
             </a>
-            <a href="post-job.php">
+            <a href="employers/post-job.php">
                 <button class="hero-button hero-button-secondary">Post a Job</button>
             </a>
         </div>
