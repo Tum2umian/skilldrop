@@ -126,10 +126,9 @@ Edit Apache Virtual Host and restart Apache:
 5. Open a Pull Request.
 
 ## License
-
 This in open-source project.
 
 ## Contact Us
 
 For any inquiries or issues, contact us through the group admin. 
-
+halsteadAnalyzer.js implements Halsted complexity model
