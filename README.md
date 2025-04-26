@@ -202,3 +202,22 @@ To analyze your codebase:
  node halsteadAnalyzer.js
 
 halsteadAnalyzer.js implements Halsted complexity model
+
+## Reliability Practices in SkillDrop
+
+To ensure the reliability of SkillDrop, we have implemented the following practices:
+
+### Logging for Failure Tracking
+We have added a logging mechanism to track failures, their context, and execution time. This helps us identify and analyze issues effectively. The logs are stored in `logs/system.log`.
+
+### Reliability Metrics Calculation
+A script (`scripts/reliabilityMetrics.php`) has been added to calculate key reliability metrics:
+- **MTTF (Mean Time To Failure)**: Average time the system operates correctly before a failure.
+- **MTTR (Mean Time To Repair)**: Average time taken to fix a fault after a failure.
+- **MTBF (Mean Time Between Failures)**: Average time between consecutive failures.
+
+### Usage Instructions
+1. **Logging Failures**: Use the `Logger` class in `includes/logger.php` to log failures. Example:
+   ```php
+   $logger = new Logger();
+   $logger->logFailure('Database connection failed', ['operation' => 'fetchUser', 'userId' => 123]);
