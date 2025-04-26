@@ -113,6 +113,12 @@ Edit Apache Virtual Host and restart Apache:
 
 - Test Coverage: PHPUnit for backend tests.
 
+- Lines of Code Counter: Automated GitHub workflow that monitors project size:
+  - Tracks total lines of code in PHP, HTML, CSS, and JavaScript files
+  - Runs automatically on every push and pull request
+  - Helps track project growth and complexity
+  - Configuration in `.github/workflows/loc.yml`
+
 ## Contributing
 
 1. Fork the repository.
