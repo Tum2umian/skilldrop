@@ -1,0 +1,58 @@
+
+FILE: D:\Reviden\htdocs\skilldrop 2\auth\forgot-password.php
+--------------------------------------------------------------------------------
+FOUND 3 ERRORS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+  1 | ERROR | [x] End of line character is invalid; expected "\n" but found
+    |       |     "\r\n"
+  1 | ERROR | [x] Whitespace found at end of line
+ 30 | ERROR | [x] Expected 1 space after closing parenthesis; found 0
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 3 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+
+FILE: D:\Reviden\htdocs\skilldrop 2\auth\login.php
+--------------------------------------------------------------------------------
+FOUND 6 ERRORS AFFECTING 5 LINES
+--------------------------------------------------------------------------------
+  1 | ERROR | [x] End of line character is invalid; expected "\n" but found
+    |       |     "\r\n"
+  1 | ERROR | [x] Whitespace found at end of line
+ 12 | ERROR | [x] Whitespace found at end of line
+ 15 | ERROR | [x] Whitespace found at end of line
+ 21 | ERROR | [x] Whitespace found at end of line
+ 50 | ERROR | [x] Expected 1 space after closing parenthesis; found 0
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 6 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+
+FILE: D:\Reviden\htdocs\skilldrop 2\auth\logout.php
+--------------------------------------------------------------------------------
+FOUND 3 ERRORS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+ 1 | ERROR | [x] Header blocks must be separated by a single blank line
+ 1 | ERROR | [x] End of line character is invalid; expected "\n" but found
+   |       |     "\r\n"
+ 7 | ERROR | [x] A closing tag is not permitted at the end of a PHP file
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 3 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+
+FILE: D:\Reviden\htdocs\skilldrop 2\auth\register.php
+--------------------------------------------------------------------------------
+FOUND 4 ERRORS AND 1 WARNING AFFECTING 4 LINES
+--------------------------------------------------------------------------------
+  1 | ERROR   | [x] End of line character is invalid; expected "\n" but found
+    |         |     "\r\n"
+  1 | ERROR   | [x] Whitespace found at end of line
+ 15 | ERROR   | [x] Whitespace found at end of line
+ 28 | WARNING | [ ] Line exceeds 120 characters; contains 125 characters
+ 42 | ERROR   | [x] Expected 1 space after closing parenthesis; found 0
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 4 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+

@@ -1,0 +1,32 @@
+{
+    "directories": [
+        "auth/",
+        "employers/",
+        "workers/"
+    ],
+    "tools": {
+        "phpmd": {
+            "ruleset": "phpmd_ruleset.xml",
+            "output_format": "html",
+            "output_file": "reports/phpmd_report.html"
+        },
+        "phpcs": {
+            "standard": "phpcs_ruleset.xml",
+            "output_format": "json",
+            "output_file": "reports/phpcs_report.json"
+        },
+        "phploc": {
+            "output_format": "json",
+            "output_file": "reports/phploc_report.json"
+        },
+        "phpstan": {
+            "level": 1,
+            "output_format": "json",
+            "output_file": "reports/phpstan_report.json"
+        }
+    },
+    "html_report": {
+        "output_file": "reports/analysis_report.html",
+        "title": "SkillDrop Code Analysis Report"
+    }
+}
