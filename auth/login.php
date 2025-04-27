@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php if ($message): ?>
         <p class="error-message"><?php echo htmlspecialchars($message); ?></p>
     <?php endif; ?>
-    <form action="auth/login.php" method="post" id="loginForm" class="form">
+    <form action="login.php" method="post" id="loginForm" class="form">
         <div class="form-group">
             <label for="emailphone" class="form-label">Email/Phone:</label>
             <input type="text" name="emailphone" id="emailphone" class="form-input" required>

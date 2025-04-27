@@ -105,7 +105,8 @@ Edit Apache Virtual Host and restart Apache:
 
 ## Software Metrics Tracking
 
-- Weekly Commits: Updates tracked in metrics.md.
+- Weekly Commits: Updates 
+tracked in metrics.md.
 
 - Code Quality: PHPMD (PHP Mess Detector) reports.
 
@@ -114,35 +115,38 @@ Edit Apache Virtual Host and restart Apache:
 - Test Coverage: PHPUnit for backend tests.
 
 ## 📈 Software Testing Metrics Applied
-# Lecture 10:
 
-- Applied Unit, Integration, and System testing.
-- Used Boundary Value Analysis, Equivalence Classes, GUI coverage.
-- Measured Test Pass, Failure, and Pending Rates.
-- Used Bug Seeding technique to validate defect detection.
-- Test scripts available under `/test/`.
+## 🛡️ SkillDrop Testing Dashboard
 
-## Contributing
+This module introduces automated quality checks across the project, including real-time calculations of software metrics, defect estimation, workflow validations, and persistent test logging.
+This module implements concepts such as **Lines of Code (LOC) analysis**, **defect density estimation**, **workflow integrity verification**, and **historical tracking of results**, directly applying principles from **Lecture 10**.
+Every test operates on live project data—without assumptions—providing a practical, lightweight framework to ensure SkillDrop's ongoing software quality and reliability.
 
-1. Fork the repository.
+## Halstead Analyzer
 
-2. Create a feature branch (git checkout -b feature-name).
+The project includes a JavaScript-based code complexity analyzer (`halsteadAnalyzer.js`) that helps identify complex code sections that might need refactoring. The analyzer processes multiple file types and calculates Halstead complexity metrics:
 
-3. Commit changes (git commit -m 'Add feature').
+- **Supported File Types:**
+  - PHP files (.php)
+  - JavaScript files (.js)
+  - CSS files (.css)
+  - HTML files (.html)
 
-4. Push to the branch (git push origin feature-name).
+- **Complexity Metrics:** 
+  - Unique operators (n1) and operands (n2)
+  - Total operators (N1) and operands (N2)
+  - Program vocabulary (n) and length (N)
+  - Program volume (V) and difficulty (D)
+  - Programming effort (E)
 
-5. Open a Pull Request.
+To analyze your codebase:
 
-## License
-This in open-source project.
+ node halsteadAnalyzer.js
 
-## Contact Us
+halsteadAnalyzer.js implements Halsted complexity model
 
-For any inquiries or issues, contact us through the group admin. 
-halsteadAnalyzer.js implements Halsted complexity model3. Search for professionals based on skill and location.
 
-4. Leave reviews after service completion.
+
 
 ## Security Best Practices
 
@@ -182,26 +186,3 @@ This in open-source project.
 For any inquiries or issues, contact us through the group admin. 
 halsteadAnalyzer.js implements Halsted complexity model
 
-
-## Halstead Analyzer
-
-The project includes a JavaScript-based code complexity analyzer (`halsteadAnalyzer.js`) that helps identify complex code sections that might need refactoring. The analyzer processes multiple file types and calculates Halstead complexity metrics:
-
-- **Supported File Types:**
-  - PHP files (.php)
-  - JavaScript files (.js)
-  - CSS files (.css)
-  - HTML files (.html)
-
-- **Complexity Metrics:** 
-  - Unique operators (n1) and operands (n2)
-  - Total operators (N1) and operands (N2)
-  - Program vocabulary (n) and length (N)
-  - Program volume (V) and difficulty (D)
-  - Programming effort (E)
-
-To analyze your codebase:
-
- node halsteadAnalyzer.js
-
-halsteadAnalyzer.js implements Halsted complexity model
