@@ -113,6 +113,15 @@ Edit Apache Virtual Host and restart Apache:
 
 - Test Coverage: PHPUnit for backend tests.
 
+## 📈 Software Testing Metrics Applied
+# Lecture 10:
+
+- Applied Unit, Integration, and System testing.
+- Used Boundary Value Analysis, Equivalence Classes, GUI coverage.
+- Measured Test Pass, Failure, and Pending Rates.
+- Used Bug Seeding technique to validate defect detection.
+- Test scripts available under `/test/`.
+
 ## Contributing
 
 1. Fork the repository.

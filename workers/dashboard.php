@@ -67,8 +67,12 @@ $reviews_result = $reviews_stmt->get_result();
             <span class="profile-name"><?php echo htmlspecialchars($user_name); ?></span>
         </div>
         <div class="dashboard-links">
-            <a href="edit-profile.php" class="button secondary">Edit Profile</a>
-        </div>
+    
+    <a href="manage-services.php" class="nav-link">Manage Services</a>
+    <a href="respond-invitation.php" class="nav-link">Respond to Invitations</a>
+    <a href="edit-profile.php" class="button secondary">Edit Profile</a>
+</div>
+
     </nav>
 
     <!-- Job Invitations Section -->

@@ -28,8 +28,11 @@ $profile_image = !empty($user['profile_image']) ? "" . $user['profile_image'] : 
             <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Image" class="worker-profile-icon">
             <span><?php echo htmlspecialchars($user_name); ?></span>
         </div>
+
         <div class="worker-top-nav-links">
-            <a href="edit-profile.php" class="nav-link"><i class="fas fa-user-edit"></i> Edit Profile</a>
+        <a href="manage-services.php" class="nav-link">Manage Services</a>
+    <a href="respond-invitation.php" class="nav-link">Respond to Invitations</a>
+    <a href="edit-profile.php" class="button secondary">Edit Profile</a>
         </div>
     </nav>
 
