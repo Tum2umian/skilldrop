@@ -122,6 +122,13 @@ This module introduces automated quality checks across the project, including re
 This module implements concepts such as **Lines of Code (LOC) analysis**, **defect density estimation**, **workflow integrity verification**, and **historical tracking of results**, directly applying principles from **Lecture 10**.
 Every test operates on live project data—without assumptions—providing a practical, lightweight framework to ensure SkillDrop's ongoing software quality and reliability.
 
+## 🧩 OO Metrics Visualization
+
+This enhancement introduces dynamic color-coded visualization for object-oriented metrics across SkillDrop classes, covering **WMC (Weighted Methods per Class)**, **DIT (Depth of Inheritance Tree)**, **CBO (Coupling Between Objects)**, and **LCOM (Lack of Cohesion in Methods)**.  
+This implementation leverages real-time project data—no simulations—to immediately reveal structural or design anomalies.  
+Each metric result is mapped to a visual color code (green, red, orange, gray) based on carefully selected thresholds, making code quality issues easily identifiable at a glance.  
+This practical quality control directly applies analysis principles from **Lecture 11**, embedding software metrics interpretation seamlessly into the SkillDrop testing workflow for maintainability, auditing, and better project reliability.
+
 ## Halstead Analyzer
 
 The project includes a JavaScript-based code complexity analyzer (`halsteadAnalyzer.js`) that helps identify complex code sections that might need refactoring. The analyzer processes multiple file types and calculates Halstead complexity metrics:
