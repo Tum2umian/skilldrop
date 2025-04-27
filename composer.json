@@ -1,3 +1,4 @@
+
 {
     "name": "almatechpc/skilldrop2",
     "autoload": {
@@ -18,3 +19,6 @@
         "cmgmyr/phploc": "^8.0"
     }
 }
+
+{ "require": { "nikic/php-parser": "^4.15" } } 
+
