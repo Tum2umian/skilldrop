@@ -1,1 +1,12 @@
 {"timestamp":"2025-04-27 14:21:19","total_lines":3006,"expected_defects":2.4048,"result":"PASS"}
+{"timestamp":"2025-04-27 19:34:05","total_lines":2993,"expected_defects":2.3944,"result":"PASS"}
+{"timestamp":"2025-04-27 20:53:26","total_lines":2993,"expected_defects":2.3944,"result":"PASS"}
+{"timestamp":"2025-04-27 22:22:53","total_lines":2993,"expected_defects":2.3944,"result":"PASS"}
+{"timestamp":"2025-04-27 22:24:13","total_lines":2993,"expected_defects":2.3944,"result":"PASS"}
+{"timestamp":"2025-04-27 22:33:57","total_lines":2976,"expected_defects":2.3808000000000002,"result":"PASS"}
+{"timestamp":"2025-04-27 22:34:27","total_lines":2976,"expected_defects":2.3808000000000002,"result":"PASS"}
+{"timestamp":"2025-04-27 22:34:30","total_lines":2976,"expected_defects":2.3808000000000002,"result":"PASS"}
+{"timestamp":"2025-04-27 22:34:38","total_lines":2993,"expected_defects":2.3944,"result":"PASS"}
+{"timestamp":"2025-04-27 22:41:07","total_lines":2998,"expected_defects":2.3984,"result":"PASS"}
+{"timestamp":"2025-04-27 22:42:36","total_lines":2998,"expected_defects":2.3984,"result":"PASS"}
+{"timestamp":"2025-04-27 22:42:54","total_lines":2998,"expected_defects":2.3984,"result":"PASS"}

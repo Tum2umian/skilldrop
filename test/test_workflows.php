@@ -1,6 +1,11 @@
 <?php
-// Directory: /test/test_workflows.php
 include '../includes/db.php';
+
+// Protect workers only
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'worker') {
+    header("Location: ../auth/login.php");
+    exit;
+}
 
 // Load test workflow results
 $log_file = "logs/test_workflows_log.txt";
@@ -13,17 +18,16 @@ if (file_exists($log_file)) {
     }
 }
 
-// Workflows to display
+// Workflows you have actually in SkillDrop
 $workflows = [
-    "User Registration" => "User fills signup form, submits, and is saved in DB with unique email.",
-    "User Login" => "User enters correct credentials and is redirected to their dashboard.",
-    "Post Job" => "Employer fills the job posting form and submits successfully.",
-    "Apply to Job" => "Worker clicks apply on a posted job and application is recorded.",
-    "Invite Worker" => "Employer sends an invite to worker to apply for a job.",
-    "Edit Profile" => "Worker updates profile info including uploading a new profile picture."
+    "User Registration" => "New user signs up with email, password, role (worker/employer).",
+    "User Login" => "Registered user logs in and is redirected based on role (worker, employer, admin).",
+    "Post Job" => "Employer posts a job, filled into `job_posts` table.",
+    "Apply to Job" => "Worker applies for job, record saved in `applications` table.",
+    "Invite Worker" => "Employer invites a worker via `invitations` table.",
+    "Edit Profile" => "Worker updates name, email, phone, profile picture, and location."
 ];
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +46,7 @@ $workflows = [
         tr:nth-child(even) { background: #f8f9fa; }
         .badge-pass { background-color: #28a745; color: white; padding: 5px 12px; border-radius: 15px; }
         .badge-fail { background-color: #dc3545; color: white; padding: 5px 12px; border-radius: 15px; }
+        .badge-notested { background-color: #ffc107; color: black; padding: 5px 12px; border-radius: 15px; }
         .footer { background: #2E7D32; color: white; text-align: center; padding: 1rem; margin-top: 2rem; }
     </style>
 </head>
@@ -69,11 +74,13 @@ $workflows = [
         </tr>
         <?php foreach ($workflows as $workflow => $description): ?>
             <?php 
-            // Check latest result
+            // Default to "Not Tested"
             $latest_result = "Not Tested";
-            $badge_class = "";
+            $badge_class = "badge-notested";
+
+            // Find if tested
             foreach (array_reverse($test_results) as $test) {
-                if ($test['workflow'] === $workflow) {
+                if (isset($test['workflow']) && $test['workflow'] === $workflow) {
                     $latest_result = $test['result'];
                     $badge_class = ($latest_result === "PASS") ? "badge-pass" : "badge-fail";
                     break;
