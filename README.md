@@ -221,3 +221,11 @@ A script (`scripts/reliabilityMetrics.php`) has been added to calculate key reli
    ```php
    $logger = new Logger();
    $logger->logFailure('Database connection failed', ['operation' => 'fetchUser', 'userId' => 123]);
+
+   Here's a concise summary for your README file that connects your PHP code analysis pipeline to the SENG 421 lecture requirements on empirical software engineering investigation:
+
+---
+
+### Empirical Software Engineering Investigation
+
+It conducts a case study to evaluate PHP code quality in `auth/`, `employers/`, and `workers/` directories using static analysis tools (PHPMD, PHP_CodeSniffer, PHPLoc, PHPStan). Key metrics like cyclomatic complexity, style violations, and potential bugs are analyzed and presented in `analysis_report.html`. The pipeline, automated via `generate_metrics_report.bat`, follows empirical SE principles by defining a research question ("Can static analysis tools improve code quality?"), collecting data from source code (third-degree contact), and addressing practical challenges (e.g., PHPMD failure for `auth/`). It bridges research and practice by validating tools for industrial use, meeting the lecture's goals of improving SE processes through empirical evaluation.
