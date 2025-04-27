@@ -1,15 +1,16 @@
 <?php
 // Directory: /test/index.php
 
-// Define log files
+// Define all log files
 $log_files = [
     "Estimate Defects" => "logs/estimate_defects_log.txt",
     "Test Pages" => "logs/test_pages_log.txt",
     "Test Workflows" => "logs/test_workflows_log.txt",
     "Test Summary" => "logs/test_summary_log.txt",
+    "Object Oriented Metrics" => "logs/test_object_oriented_metrics_log.txt", // ✅ NEW
 ];
 
-// Helper to read last line from log file
+// Helper to read last log
 function read_last_log($file_path) {
     if (!file_exists($file_path)) {
         return "No test run yet.";
@@ -25,7 +26,6 @@ function read_last_log($file_path) {
         return "Invalid log data.";
     }
 
-    // Format display based on available keys
     $summary = "";
     foreach ($last as $key => $value) {
         $summary .= "<strong>" . ucfirst(str_replace("_", " ", $key)) . ":</strong> " . htmlspecialchars($value) . "<br>";
@@ -67,6 +67,7 @@ function read_last_log($file_path) {
         <a href="test_pages.php">📄 Test Pages</a>
         <a href="test_summary.php">🧾 Summary Report</a>
         <a href="test_workflows.php">🔄 Test Workflows</a>
+        <a href="test_object_oriented_metrics.php">⚙️ OO Metrics</a> <!-- ✅ NEW -->
     </div>
 </header>
 
@@ -78,8 +79,13 @@ function read_last_log($file_path) {
         <p><?php echo read_last_log($file_path); ?></p>
         <div class="test-actions">
             <?php
-            // link to corresponding test file
-            $file_link = strtolower(str_replace(" ", "_", $test_name)) . ".php";
+            // Correct file link
+            $file_link = strtolower(str_replace([" ", "-"], ["_", ""], $test_name)) . ".php";
+
+            // Special fix for Object Oriented Metrics file name
+            if ($test_name === "Object Oriented Metrics") {
+                $file_link = "test_object_oriented_metrics.php";
+            }
             ?>
             <a href="<?php echo $file_link; ?>" class="button green">Run Test</a>
             <a href="reset_log.php?file=<?php echo urlencode($file_path); ?>" class="button red" onclick="return confirm('Are you sure you want to reset <?php echo htmlspecialchars($test_name); ?> log?');">Reset Log</a>
