@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php if ($message): ?>
         <p class="error-message"><?php echo htmlspecialchars($message); ?></p>
     <?php endif; ?>
-    <form action="login.php" method="post" id="loginForm" class="form">
+    <form action="auth/login.php" method="post" id="loginForm" class="form">
         <div class="form-group">
             <label for="emailphone" class="form-label">Email/Phone:</label>
             <input type="text" name="emailphone" id="emailphone" class="form-input" required>
@@ -61,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <button type="submit" class="submit-button">Log In</button>
     </form>
-    <p><a href="forgot-password.php">Forgot Password?</a></p>
-    <p>Don't have an account? <a href="register.php">Register here</a></p>
+    <p><a href="auth/forgot-password.php">Forgot Password?</a></p>
+    <p>Don't have an account? <a href="auth/register.php">Register here</a></p>
 </main>
 
 <?php include '../includes/footer.php'; ?>

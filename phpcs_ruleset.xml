@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="CustomPHPCS">
+    <description>Custom ruleset for SkillDrop</description>
+    <rule ref="PSR12"/>
+    <rule ref="Generic.Metrics.NestingLevel">
+        <properties>
+            <property name="nestingLevel" value="3"/>
+        </properties>
+    </rule>
+    <rule ref="Generic.Metrics.CyclomaticComplexity">
+        <properties>
+            <property name="complexity" value="8"/>
+        </properties>
+    </rule>
+</ruleset>
