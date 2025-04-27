@@ -132,6 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="file" name="profile_image" id="profileImageInput">
         </div>
 
+
         <!-- Full Name -->
         <div class="form-group">
             <label for="full_name" class="form-label">Full Name:</label>
