@@ -122,6 +122,16 @@ This module introduces automated quality checks across the project, including re
 This module implements concepts such as **Lines of Code (LOC) analysis**, **defect density estimation**, **workflow integrity verification**, and **historical tracking of results**, directly applying principles from **Lecture 10**.
 Every test operates on live project data—without assumptions—providing a practical, lightweight framework to ensure SkillDrop's ongoing software quality and reliability.
 
+## Code Metrics Analysis Module
+This module enhances SkillDrop with automated code quality analysis for PHP files in the admin/ directory, leveraging the nikic/php-parser library to compute structural complexity metrics. It implements concepts such as cyclomatic complexity, depth of nesting, information flow complexity, and data structure complexity.
+Metrics are stored in a database for historical tracking.
+**Setup**
+-Install nikic/php-parser
+-Run composer install
+-Create Database Table
+-Run the analyze.php file from the admin/ directory
+-Select all from the database table(code_metrics) to view the metrics
+
 ## 🧩 OO Metrics Visualization
 
 This enhancement introduces dynamic color-coded visualization for object-oriented metrics across SkillDrop classes, covering **WMC (Weighted Methods per Class)**, **DIT (Depth of Inheritance Tree)**, **CBO (Coupling Between Objects)**, and **LCOM (Lack of Cohesion in Methods)**.  
