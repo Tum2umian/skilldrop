@@ -1,0 +1,1 @@
+[2025-04-27 22:43:40] FAILURE: Database connection failed | Context: {"operation":"fetchUser","userId":123}
