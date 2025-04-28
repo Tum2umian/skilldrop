@@ -4,6 +4,10 @@ class Logger {
 
     public function __construct($filePath = 'logs/system.log') {
         $this->logFile = $filePath;
+        $logDir = dirname($this->logFile);
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0777, true); // Ensure the logs directory exists
+        }
         if (!file_exists($this->logFile)) {
             file_put_contents($this->logFile, '');
         }
@@ -17,7 +21,17 @@ class Logger {
     }
 }
 
-// Usage example
-$logger = new Logger();
-$logger->logFailure('Database connection failed', ['operation' => 'fetchUser', 'userId' => 123]);
+// Database connection example
+try {
+    $pdo = new PDO('mysql:host=localhost;dbname=skilldrop', 'username', 'password');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Example query
+    $stmt = $pdo->query('SELECT * FROM users');
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    $logger = new Logger();
+    $logger->logFailure('Database connection error', ['error' => $e->getMessage()]);
+}
 ?>
