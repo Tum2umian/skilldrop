@@ -116,6 +116,20 @@ tracked in metrics.md.
 
 ## 📈 Software Testing Metrics Applied
 
+![alt text](<Lecture 2.png>)
+
+# 📊 Measurement in SkillDrop
+
+SkillDrop uses Measurement Theory by:
+
+- **Attributes**: LOC, defects, workflows
+- **Mapping**: Project data → numeric values
+- **Methods**: Automated PHP scripts and logs
+- **Interpretation**: Analyze defects, workflow health
+
+✅ Real project metrics ensure SkillDrop quality improves with evidence, not assumptions.
+
+
 ## 🛡️ SkillDrop Testing Dashboard
 
 This module introduces automated quality checks across the project, including real-time calculations of software metrics, defect estimation, workflow validations, and persistent test logging.
